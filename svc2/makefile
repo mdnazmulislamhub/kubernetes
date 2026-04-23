@@ -1,8 +1,8 @@
 tag:=v1.0.1
 image:=svc2
 repo:=nazmulcs42
-username:=aaa
-password:=
+username:=$$USER_NAME
+password:=$$PASSWORD
 build:
 	@ docker buildx build -t $(image):$(tag) .
 run:
@@ -10,9 +10,12 @@ run:
 rm:
 	@ docker stop $(image)
 	@ docker rm -f $(image)
-push:
+login:
+	@ echo "Logging in to Docker registry with username $(username)"
+	@ docker login -u $(username) -p $(password)
+
+push: login
 	@ echo "Pushing image $(image):$(tag) to repository $(repo)"
-# 	@ docker login -u $(username) -p $(password)
 	@ docker tag $(image):$(tag) $(repo)/$(image):$(tag)
 	@ docker push $(repo)/$(image):$(tag)
 

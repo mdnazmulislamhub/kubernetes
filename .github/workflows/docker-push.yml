@@ -1,0 +1,22 @@
+name: Build and Push svc1
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - 'svc1/**'
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build and push
+        working-directory: ./svc1
+        env:
+          USER_NAME: ${{ secrets.DOCKER_USERNAME }}
+          PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        run: make push
