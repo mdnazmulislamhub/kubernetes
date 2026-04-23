@@ -1,8 +1,8 @@
 tag:=v1.0.1
 image:=svc1
 repo:=nazmulcs42
-username:=aaa
-password:=
+username:=$$USER_NAME
+password:=$$PASSWORD
 
 build:
 	@ echo "Building Docker image $(image):$(tag)"
